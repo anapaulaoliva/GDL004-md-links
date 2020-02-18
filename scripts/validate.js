@@ -1,3 +1,4 @@
+const path = require('../scripts/path.js');
 const http = require('http');
 
 module.exports = {

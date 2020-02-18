@@ -7,7 +7,9 @@ const pathExtFlag = process.argv[2];
 const commandFlag = process.argv[3];
 
 if (pathExtFlag.includes('.md')) {
-    console.log(path.showLinks()); 
+            path.readPath();
+            path.textMdArray();
+            path.showLinks();
         switch (commandFlag) {
                 case '--validate':
                 case '-v':

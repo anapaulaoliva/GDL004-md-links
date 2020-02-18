@@ -1,0 +1,33 @@
+{
+  "name": "gdl004-md-links",
+  "version": "1.0.0",
+  "description": "'Markdown links verifyer'",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anapaulaoliva/GDL004-md-links.git"
+  },
+  "author": "\u001b[A\u001b[BAna Paula Fernandez Oliva\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Oliva\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anapaulaoliva/GDL004-md-links/issues"
+  },
+  "homepage": "https://github.com/anapaulaoliva/GDL004-md-links#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.3",
+    "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "editorconfig": "^0.15.3",
+    "markdown-link-extractor": "^1.2.2"
+  }
+}

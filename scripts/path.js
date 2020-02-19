@@ -25,7 +25,7 @@ module.exports = {
             let counter = 0;
             for (let i = 0; i < textResult.length; i++) {            
             links.forEach((link) => {  
-                if (counter > textResult.length){
+                if (counter >= textResult.length){
 
                 } else {
 

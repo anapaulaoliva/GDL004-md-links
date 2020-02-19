@@ -8,6 +8,7 @@ module.exports = {
     textMdArray: (markdown, textResult) => {
         markdown = fs.readFileSync(process.argv[2]).toString();
         textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
+        
     },
     lengthMdArray: (markdown, textResult) => {
         markdown = fs.readFileSync(process.argv[2]).toString();
@@ -20,20 +21,24 @@ module.exports = {
         markdown = fs.readFileSync(process.argv[2]).toString();
         textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
         links = markdownLinkExtractor(markdown);
-
-        for (item of textResult){
-
+    
+            let counter = 0;
+            for (let i = 0; i < textResult.length; i++) {            
             links.forEach((link) => {  
+                if (counter > textResult.length){
+
+                } else {
 
                 let pathInfoResult = {
                 File: file,
                 Href: link,
-                Text: [textResult[item]]
+                Text: textResult[counter]
                 }
-                
+                counter++;
+
                 console.log(pathInfoResult);
-    
+                }
              });
-        }
+         }
     }
 }

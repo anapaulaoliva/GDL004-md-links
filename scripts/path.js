@@ -1,5 +1,7 @@
 const fs = require('fs');
+const path = require('path');
 const markdownLinkExtractor = require('markdown-link-extractor');
+const validate = require('../scripts/validate.js');
 
 module.exports = {
     readPath: (file) => {
@@ -8,34 +10,34 @@ module.exports = {
     textMdArray: (markdown, textResult) => {
         markdown = fs.readFileSync(process.argv[2]).toString();
         textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
-        
-    },
-    lengthMdArray: (markdown, textResult) => {
-        markdown = fs.readFileSync(process.argv[2]).toString();
-        textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
-
-        console.log('Total Links: ' + textResult.length);
     },
     showLinks: (file, markdown, links, textResult) => {
-        file = process.argv[2];
+        file = /*path.basename(*/process.argv[2]/*)*/;
         markdown = fs.readFileSync(process.argv[2]).toString();
         textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
         links = markdownLinkExtractor(markdown);
-    
+        
+            let pathInfoResult = {
+                File: ' ',
+                Href: ' ',
+                Text: ' '
+            };
+            
             let counter = 0;
-            for (let i = 0; i < textResult.length; i++) {            
+
+            for (let i = 0; i < textResult.length; i++) { 
+        
             links.forEach((link) => {  
+                
                 if (counter >= textResult.length){
 
                 } else {
+                    
+                pathInfoResult.File = file;
+                pathInfoResult.Href = link;
+                pathInfoResult.Text = textResult[counter];
 
-                let pathInfoResult = {
-                File: file,
-                Href: link,
-                Text: textResult[counter]
-                }
                 counter++;
-
                 console.log(pathInfoResult);
                 }
              });

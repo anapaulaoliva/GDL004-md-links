@@ -2,18 +2,16 @@ const process = require('process');
 const validate = require('./scripts/validate.js');
 const path = require('./scripts/path.js');
 const stats = require('./scripts/stats.js');
+
 const pathExtFlag = process.argv[2];
 const commandFlag = process.argv[3];
 
 if (pathExtFlag.includes('.md')) {
 
-            let textFile = path.readPath(process.argv[2]);
-            let labelLinksArray = path.textMdArray(textFile);
-            
-            console.log(textFile);
-            console.log(labelLinksArray);
-            
-            //path.showLinks(labelLinksArray);
+            let parsedFile = path.readPath(process.argv[2]);
+            let labelLinksArray = path.getLabelLinks(parsedFile);
+            let pathInfoArray = path.showLinks(process.argv[2], parsedFile, labelLinksArray);
+            console.log(pathInfoArray);
 
         switch (commandFlag) {
 

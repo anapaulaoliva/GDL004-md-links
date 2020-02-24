@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "editorconfig": "^0.15.3",
-    "markdown-link-extractor": "^1.2.2"
+    "markdown-link-extractor": "^1.2.2",
+    "node-fetch": "^2.6.0"
   }
 }

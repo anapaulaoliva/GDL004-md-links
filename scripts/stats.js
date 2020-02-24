@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pathJS = require('../scripts/path.js');
+//const pathJS = require('../scripts/path.js');
 
 module.exports = {
     showStats: (markdown, textResult) => {

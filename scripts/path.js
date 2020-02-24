@@ -1,21 +1,23 @@
 const fs = require('fs');
-const path = require('path');
 const markdownLinkExtractor = require('markdown-link-extractor');
 const validate = require('../scripts/validate.js');
 
 module.exports = {
     readPath: (file) => {
-        file = process.argv[2];
+
+        return fs.readFileSync(file).toString();
     },
-    textMdArray: (markdown, textResult) => {
+    textMdArray: (str) => {
+
+        let labelLinksArray = str.match(/\[.+\w+(\w|\W)\]/g);
+        return labelLinksArray;
+    }/*,
+    showLinks: (labelLinks) => {
+
+        /*file = path.basename(process.argv[2]);
         markdown = fs.readFileSync(process.argv[2]).toString();
         textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
-    },
-    showLinks: (file, markdown, links, textResult) => {
-        file = /*path.basename(*/process.argv[2]/*)*/;
-        markdown = fs.readFileSync(process.argv[2]).toString();
-        textResult = markdown.match(/\[.+\w+(\w|\W)\]/g);
-        links = markdownLinkExtractor(markdown);
+        links = markdownLinkExtractor(str)
         
             let pathInfoResult = {
                 File: ' ',
@@ -25,11 +27,11 @@ module.exports = {
             
             let counter = 0;
 
-            for (let i = 0; i < textResult.length; i++) { 
+            for (let i = 0; i < labelLinks.length; i++) { 
         
             links.forEach((link) => {  
                 
-                if (counter >= textResult.length){
+                if (counter >= labelLinks.length){
 
                 } else {
                     
@@ -40,7 +42,8 @@ module.exports = {
                 counter++;
                 console.log(pathInfoResult);
                 }
-             });
-         }
-    }
+                
+            });
+        }
+    } */
 }

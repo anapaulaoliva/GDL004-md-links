@@ -13,11 +13,10 @@ module.exports = {
     },
     showLinks: (path, parsedFile, labelLinks ) => {
 
-        let links = markdownLinkExtractor(parsedFile);        
+        let links = markdownLinkExtractor(parsedFile);   
         let pathInfoArray = [];
-        
-            links.forEach((link, index) => { 
-            
+
+            links.forEach((link, index) => {          
                 pathInfoArray.push({File: path, Href: link, Text: labelLinks[index]});
             });
             return pathInfoArray;

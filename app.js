@@ -8,27 +8,32 @@ const commandFlag = process.argv[3];
 
 if (pathExtFlag.includes('.md')) {
 
-            let parsedFile = path.readPath(process.argv[2]);
-            let labelLinksArray = path.getLabelLinks(parsedFile);
-            let pathInfoArray = path.showLinks(process.argv[2], parsedFile, labelLinksArray);
-            console.log(pathInfoArray);
+        let parsedFile = path.readPath(process.argv[2]);
+        let labelLinksArray = path.getLabelLinks(parsedFile);
+        let pathInfoArray = path.showLinks(process.argv[2], parsedFile, labelLinksArray);
+        console.log(pathInfoArray);
 
         switch (commandFlag) {
 
                 case '--validate':
                 case '-v':
-                console.log(validate.validateLinks());
-                break;
-
+                
+                        validate.validateLinks(pathInfoArray)
+                        .then((data) => {
+                                //validate.validateLinks(data)
+                                console.log(data)
+                        })
+                        .catch((error) => {
+                                console.log(error)
+                        });
+                        break;
                 case '--stats':
                 case '-s':
-                console.log(stats.showStats());
-                break; 
-
-                /*case '':
-                return 'ERR: INVALID COMMAND';*/
+                        let total = stats.showStats(pathInfoArray);
+                        console.table(total)
+                        break; 
         }
 } else {
 
-    console.log('ERR: Invalid Path.');
+        console.log('ERR: Invalid Path.');
 };

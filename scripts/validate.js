@@ -1,55 +1,78 @@
-const fs = require('fs');
-const markdownLinkExtractor = require('markdown-link-extractor');
 const fetch = require('node-fetch');
 
 module.exports = {
-    validateLinks: (markdown, links) => {
+    validateLinks: (pathInfoArray) => {
+        //el parametro pathInfoArray esta recibiendo mi arreglo de objetos con [{File: ,Href: ,Text: }] como argument
+        
+        //se declara un arreglo donde se va a meter -la respuesta de la peticion a fetch- para cada link del arreglo
+        let promises = [];
 
-        markdown = fs.readFileSync(process.argv[2]).toString();
-        links = markdownLinkExtractor(markdown);
+        //se declaran contadores para el chart de estadisticas del final
+        let total = pathInfoArray.length;
+        let functionalLinks = 0;
+        let brokenLinks = 0;
 
-        let httpRequestResult = {
-            Href: ' ',
-            Status: ' '
+        //se hace un objeto con las estadisticas para que salgan como una tabla en la consola con console.table(stats)
+        let stats = {
+                    'Total Links': total,
+                    Unique: functionalLinks,
+                    Broken: brokenLinks}
+
+        //itera en cada objeto del arreglo
+        for (let item of pathInfoArray) {
+
+            //Elimina la key "Text" de cada objeto iterado
+            delete item.Text;
+            
+            //Manda la peticion al servidor (fetch) del link
+            //Antes de resolverse la promesa, aparece como Promise {pending...}
+            //Una vez que se resuelva la promesa, saldra una respuesta con todos los datos de la pagina: Status, StatusText, Url... etc.
+            //Por tanto, queremos hacerles .push a las promesas una vez ya resueltas para continuar con las validaciones de los status.
+            promises.push(fetch(item.Href));
         }
 
-        links.forEach(function (link) {
+        //Como tenemos un -arreglo de promesas ya resueltas-, utilizamos Promise.all y le metemos ese arreglo
+        //Se guarda el Promise.all que significa "Una vez resueltas todas las promesas", en una variable
+        //Para poder retornar esta variable al final de la funcion.
+        const validatePromise = Promise.all(promises)
+            //resArr es cada response (respuesta) del Array resuelta
+            .then(resArr => {
+                //Para cada respuesta se hace un mapeo del status y se guarda en una variable
+                let totalArray = resArr.map(element => {
+                    //Se hace una condicional para el status 
+                    if(element.status >= 200 && element.status < 300){
 
-                httpRequestResult.Href = link;
-                httpRequestResult.Status = 'statusCode';
+                        //si la condicional es true, creara un objeto en donde se actualiza la URL (Href:) y el Status (Status:)
+                        let object = {
+                            Href: element.url, 
+                            Status: element.status
+                            };
 
-                console.log(httpRequestResult)
+                        //al contador de los status se le suma 1 cada que se cumple la condicion
+                        functionalLinks++;
+                        //se modifica el key Unique: con el valor del contador 'functional links' para el chart de status
+                        stats.Unique = functionalLinks;
+                        return object;
 
-            });
+                    } else {
+
+                        let object = {
+                            Href: element.url, 
+                            Status: element.status
+                            };
+                        
+                        brokenLinks++;
+                        stats.Broken = brokenLinks;
+                        return object;
+                        }
+                    })
+                
+                console.table(stats)
+                return totalArray;
+            })
+            .catch((error) => 
+                console.log(error))
+        
+        return validatePromise;
     }
 }
-        /* 
-        El módulo debe hacer una petición HTTP para averiguar si el link funciona o no.
-
-        0.1 F - Confirmar que el pathInfoResult se paso al modulo de valite.
-        0.2 F Poder acceder solamente al key href de los objetos.
-        pathJS.showLinks();
-        console.log(pathInfoResult.href)
-
-        0.3 F usar //const http = require('http');
-        0.4 F En forEach de Links:
-                http.get(link, res => {
-                console.log(res.statusCode);
-                
-                if (
-                    res.statusCode == 200
-                ){
-                    httpRequestResult.Href = link;
-                    httpRequestResult.Status = 'Ok' + statusCode;
-                }
-                else {
-                    httpRequestResult.Href = link;
-                    httpRequestResult.Status = 'Failed' + statusCode;
-                }
-    
-            console.log(httpRequestResult);
-
-        5. Para cada uno hacer la peticion http.
-        6. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok.
-        7. objeto = href, y ok o fail. 
-        */

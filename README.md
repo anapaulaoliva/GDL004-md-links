@@ -1,25 +1,30 @@
 # Markdown Links
 
-### Features
-
-Analyze .md files to read each hyperlink contained on it. 
-Review HTTP requests for these links and letting you know the result through a few statistics.
-
-This Markdown Links uses `markdownLinkExtractor` library to do part of it's job.
-
 ##### Build Status: In process.
 
-[Embed Build Status](https://docs.travis-ci.com/user/status-images/#travis-ci-pages-show-the-default-branchs-result)
+
+### Features
+
+- Analyze .md files to read each      hyperlink contained on it. 
+- Substract Text, URL from hyperlinks.
+
+- Make HTTP requests for these links.
+- Status chart of 200 and 404 in HTTP requests.
+
+
+- This Markdown Links uses `markdownLinkExtractor` library to do part of it's job.
+
+
 
 ##### Logo: In process.
-![](logo/.png)
+![Logo](https://medium.com/@armando_amador/how-to-make-http-requests-using-fetch-api-and-promises-b0ca7370a444)
 
 ### Installing
 
 Install with npm
 
 ```
-npm i   
+npm install  https://github.com/anapaulaoliva/mdLinks
 ```
 
 ### Example
@@ -28,7 +33,7 @@ npm i
 var markdownLinks = require("markdownLinks");
 ```
 
-### About MDLinks
+### About MarkdownLinks
 
 * `options` --validate --status
 * `--validate` What validate does.
@@ -50,7 +55,7 @@ var markdownLinks = require("markdownLinks");
 Links to redirect of searching.
 
 ### Logo
-Markdown Links logo was created by [User](pageofuser.com).
+Markdown Links logo was created by [User](https://www.npmjs.com/packageetch#class-response).
 
 ### Keywords
 
